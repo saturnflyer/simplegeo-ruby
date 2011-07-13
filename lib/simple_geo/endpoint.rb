@@ -3,19 +3,19 @@ module SimpleGeo
   class Endpoint
 
     class << self
-      
+
       def feature(id)
         endpoint_url "features/#{id}.json", '1.0'
       end
-      
+
       def get_layers()
         endpoint_url "layers.json", '0.1'
       end
-      
+
       def get_layer_info(layer)
         endpoint_url "layers/#{layer}.json", '0.1'
       end
-      
+
       def record(layer, id)
         endpoint_url "records/#{layer}/#{id}.json", '0.1'
       end
@@ -52,7 +52,7 @@ module SimpleGeo
           endpoint_url "context/#{lat},#{lon}.json", '1.0'
         end
       end
-      
+
       def context_by_address(address, filter)
         if defined?(filter)
           endpoint_url "context/address.json?address=#{address}&filter=#{filter}", '1.0'
@@ -60,7 +60,7 @@ module SimpleGeo
           endpoint_url "context/address.json?address=#{address}", '1.0'
         end
       end
-      
+
       def context_ip(ip, filter)
         if defined?(filter)
           endpoint_url "context/#{ip}.json?filter=#{filter}", '1.0'
@@ -72,14 +72,14 @@ module SimpleGeo
       def geocode_from_ip(ip)
         endpoint_url "context/#{ip}.json?filter=query", '1.0'
       end
-      
+
       def places(lat, lon, options)
         if options.empty?
           endpoint_url "places/#{lat},#{lon}.json", '1.0'
         else
           params = []
           options.each do |k,v|
-            params << "#{k}=#{v}"
+            params << "#{k}=#{URI.escape(v)}"
           end
           endpoint_url "places/#{lat},#{lon}.json?#{params.join("&")}", '1.0'
         end
@@ -89,10 +89,10 @@ module SimpleGeo
         if options.empty?
           endpoint_url "places/address.json?address=#{address}", '1.0'
         else
-          params = [] 
+          params = []
           params << "address=#{address}"
           options.each do |k,v|
-            params << "#{k}=#{v}"
+            params << "#{k}=#{URI.escape(v)}"
           end
           endpoint_url "places/address.json?#{params.join("&")}", '1.0'
         end
@@ -104,7 +104,7 @@ module SimpleGeo
         else
           params = []
           options.each do |k,v|
-            params << "#{k}=#{v}"
+            params << "#{k}=#{URI.escape(v)}"
           end
           endpoint_url "places/#{ip}.json?#{params.join("&")}", '1.0'
         end

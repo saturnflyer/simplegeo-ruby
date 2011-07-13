@@ -79,7 +79,15 @@ module SimpleGeo
         else
           params = []
           options.each do |k,v|
-            params << "#{k}=#{URI.escape(v.to_s)}"
+            #allow for multiple category filtering
+            if k.eql?(:category)
+              v.split(",").each do |cat|
+                params << "#{k}=#{URI.escape(cat.strip.to_s)}"
+              end
+            else
+              params << "#{k}=#{URI.escape(v.to_s)}"
+            end
+
           end
           endpoint_url "places/#{lat},#{lon}.json?#{params.join("&")}", '1.0'
         end
@@ -92,7 +100,14 @@ module SimpleGeo
           params = []
           params << "address=#{address}"
           options.each do |k,v|
-            params << "#{k}=#{URI.escape(v.to_s)}"
+            #allow for multiple category filtering
+            if k.eql?(:category)
+              v.split(",").each do |cat|
+                params << "#{k}=#{URI.escape(cat.strip.to_s)}"
+              end
+            else
+              params << "#{k}=#{URI.escape(v.to_s)}"
+            end
           end
           endpoint_url "places/address.json?#{params.join("&")}", '1.0'
         end
@@ -104,7 +119,14 @@ module SimpleGeo
         else
           params = []
           options.each do |k,v|
-            params << "#{k}=#{URI.escape(v.to_s)}"
+            #allow for multiple category filtering
+            if k.eql?(:category)
+              v.split(",").each do |cat|
+                params << "#{k}=#{URI.escape(cat.strip.to_s)}"
+              end
+            else
+              params << "#{k}=#{URI.escape(v.to_s)}"
+            end
           end
           endpoint_url "places/#{ip}.json?#{params.join("&")}", '1.0'
         end

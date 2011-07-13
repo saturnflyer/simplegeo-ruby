@@ -82,7 +82,8 @@ module SimpleGeo
             #allow for multiple category filtering
             if k.eql?(:category)
               v.split(",").each do |cat|
-                params << "#{k}=#{URI.escape(cat.strip.to_s)}"
+                value = URI.escape(cat.strip.to_s,Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+                params << "#{k}=#{value}"
               end
             else
               params << "#{k}=#{URI.escape(v.to_s)}"
@@ -103,7 +104,8 @@ module SimpleGeo
             #allow for multiple category filtering
             if k.eql?(:category)
               v.split(",").each do |cat|
-                params << "#{k}=#{URI.escape(cat.strip.to_s)}"
+                value = URI.escape(cat.strip.to_s,Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+                params << "#{k}=#{value}"
               end
             else
               params << "#{k}=#{URI.escape(v.to_s)}"
@@ -122,7 +124,8 @@ module SimpleGeo
             #allow for multiple category filtering
             if k.eql?(:category)
               v.split(",").each do |cat|
-                params << "#{k}=#{URI.escape(cat.strip.to_s)}"
+                value = URI.escape(cat.strip.to_s,Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+                params << "#{k}=#{value}"
               end
             else
               params << "#{k}=#{URI.escape(v.to_s)}"

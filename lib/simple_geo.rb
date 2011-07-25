@@ -10,7 +10,8 @@ require 'simple_geo/record'
 
 module SimpleGeo
   REALM = "http://api.simplegeo.com"
-  VERSION = File.read(File.join(File.dirname(__FILE__), '..', 'VERSION'))
+  path  = File.symlink?(__FILE__) ? File.readlink(__FILE__) : File.expand_path(__FILE__)
+  VERSION = File.read(File.join(File.dirname(path), '..', 'VERSION'))
 
   class SimpleGeoError < StandardError; end
   class Unauthorized < SimpleGeoError; end

@@ -28,7 +28,6 @@ module SimpleGeo
     private
 
     def request(method, endpoint, data)
-      p endpoint
         headers = {'User-Agent' => "SimpleGeo Ruby Client v#{VERSION}"}
 
         if [:get, :delete].include?(method) && !data.nil?
@@ -46,7 +45,6 @@ module SimpleGeo
             puts data.to_json
           end
         end
-
         case method
           when :get, :delete
             response = @access_token.request(method, endpoint, headers)

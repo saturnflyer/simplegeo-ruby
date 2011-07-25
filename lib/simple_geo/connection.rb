@@ -33,7 +33,6 @@ module SimpleGeo
         if [:get, :delete].include?(method) && !data.nil?
           endpoint = endpoint + '?' + build_query(data)
         end
-
         if debug
           puts "request: #{method.to_s.upcase} #{endpoint}"
           puts "headers:"
@@ -45,11 +44,12 @@ module SimpleGeo
             puts data.to_json
           end
         end
+
         case method
           when :get, :delete
             response = @access_token.request(method, endpoint, headers)
           when :post, :put
-            data = data.to_json  unless data.nil?
+          data = data.to_json  unless data.nil?
             response = @access_token.request(method, endpoint, data, headers)
         end
 

@@ -82,11 +82,11 @@ module SimpleGeo
             #allow for multiple category filtering
             if k.eql?(:category)
               v.split(",").each do |cat|
-                value = URI.escape(cat.strip.to_s,Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+                value = CGI.escape(cat.strip.to_s)
                 params << "#{k}=#{value}"
               end
             else
-              params << "#{k}=#{URI.escape(v.to_s)}"
+              params << "#{k}=#{CGI.escape(v.to_s)}"
             end
 
           end
@@ -95,6 +95,7 @@ module SimpleGeo
       end
 
       def places_by_address(address, options)
+        address = CGI.escape(address.strip.to_s)
         if options.empty?
           endpoint_url "places/address.json?address=#{address}", '1.0'
         else
@@ -104,11 +105,11 @@ module SimpleGeo
             #allow for multiple category filtering
             if k.eql?(:category)
               v.split(",").each do |cat|
-                value = URI.escape(cat.strip.to_s,Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+                value = CGI.escape(cat.strip.to_s)
                 params << "#{k}=#{value}"
               end
             else
-              params << "#{k}=#{URI.escape(v.to_s)}"
+              params << "#{k}=#{CGI.escape(v.to_s)}"
             end
           end
           endpoint_url "places/address.json?#{params.join("&")}", '1.0'
@@ -124,11 +125,11 @@ module SimpleGeo
             #allow for multiple category filtering
             if k.eql?(:category)
               v.split(",").each do |cat|
-                value = URI.escape(cat.strip.to_s,Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+                value = CGI.escape(cat.strip.to_s)
                 params << "#{k}=#{value}"
               end
             else
-              params << "#{k}=#{URI.escape(v.to_s)}"
+              params << "#{k}=#{CGI.escape(v.to_s)}"
             end
           end
           endpoint_url "places/#{ip}.json?#{params.join("&")}", '1.0'

@@ -142,6 +142,11 @@ module SimpleGeo
         HashUtils.recursively_symbolize_keys geojson_hash
       end
       
+      def get_context_by_address_and_table(address, table)
+        geojson_hash = get Endpoint.context_by_address_and_table(address, table)
+        HashUtils.recursively_symbolize_keys geojson_hash
+      end
+      
       def get_context_ip(ip, filter=nil)
         geojson_hash = get Endpoint.context_ip(ip, filter)
         HashUtils.recursively_symbolize_keys geojson_hash

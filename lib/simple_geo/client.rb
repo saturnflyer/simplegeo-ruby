@@ -131,6 +131,11 @@ module SimpleGeo
         HashUtils.recursively_symbolize_keys geojson_hash
       end
       
+      def get_context_by_table(lat, lon, table)
+        geojson_hash = get Endpoint.context_by_table(lat, lon, table)
+        HashUtils.recursively_symbolize_keys geojson_hash
+      end
+      
       def get_context_by_address(address, filter=nil)
         address = URI.escape(address, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
         geojson_hash = get Endpoint.context_by_address(address, filter)

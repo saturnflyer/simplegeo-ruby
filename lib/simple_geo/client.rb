@@ -95,18 +95,18 @@ module SimpleGeo
       end
 
       def get_nearby_records(layer, options)
+        radius = options[:rad].presence
         if options[:geohash]
           endpoint = Endpoint.nearby_geohash(layer, options.delete(:geohash))
         elsif options[:ip]
-          endpoint = Endpoint.nearby_ip_address(layer, options.delete(:ip))
+          endpoint = Endpoint.nearby_ip_address(layer, options.delete(:ip), radius)
         elsif options[:lat] && options[:lon]
           endpoint = Endpoint.nearby_coordinates(layer,
-            options.delete(:lat), options.delete(:lon))
-	    elsif options[:lat] && options[:lon] && options[:rad]
-	      endpoint = Endpoint.nearby_coordinates_rad(layer,
-	        options.delete(:lat), options.delete(:lon), options.delete(:rad))
+            options.delete(:lat), options.delete(:lon), radius)
+        elsif options[:address]
+          endpoint = Endpoint.nearby_address(layer, options.delete(:address), radius)
         else
-          raise SimpleGeoError, "Either geohash, lat/lon, or lat/lon/rad is required"
+          raise SimpleGeoError, "Either geohash, ip, address or lat and lon is required"
         end
 
         options = nil  if options.empty?

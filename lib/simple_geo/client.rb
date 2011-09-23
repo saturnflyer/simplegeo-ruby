@@ -95,7 +95,6 @@ module SimpleGeo
       end
 
       def get_nearby_records(layer, options)
-        puts options.inspect
         if options[:geohash]
           endpoint = Endpoint.nearby_geohash(layer, options.delete(:geohash))
         elsif options[:ip]
@@ -103,9 +102,9 @@ module SimpleGeo
         elsif options[:lat] && options[:lon]
           endpoint = Endpoint.nearby_coordinates(layer,
             options.delete(:lat), options.delete(:lon))
-	elsif options[:lat] && options[:lon] && options[:rad]
-	  endpoint = Endpoint.nearby_coordinates_rad(layer,
-	    options.delete(:lat), options.delete(:lon), options.delete(:rad))
+	  elsif options[:lat] && options[:lon] && options[:rad]
+	    endpoint = Endpoint.nearby_coordinates_rad(layer,
+	      options.delete(:lat), options.delete(:lon), options.delete(:rad))
         else
           raise SimpleGeoError, "Either geohash, lat/lon, or lat/lon/rad is required"
         end
@@ -132,13 +131,23 @@ module SimpleGeo
         geojson_hash = get Endpoint.context(lat, lon, filter)
         HashUtils.recursively_symbolize_keys geojson_hash
       end
-
+      
+      def get_context_by_table(lat, lon, table)
+        geojson_hash = get Endpoint.context_by_table(lat, lon, table)
+        HashUtils.recursively_symbolize_keys geojson_hash
+      end
+      
       def get_context_by_address(address, filter=nil)
         address = URI.escape(address, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
         geojson_hash = get Endpoint.context_by_address(address, filter)
         HashUtils.recursively_symbolize_keys geojson_hash
       end
-
+      
+      def get_context_by_address_and_table(address, table)
+        geojson_hash = get Endpoint.context_by_address_and_table(address, table)
+        HashUtils.recursively_symbolize_keys geojson_hash
+      end
+      
       def get_context_ip(ip, filter=nil)
         geojson_hash = get Endpoint.context_ip(ip, filter)
         HashUtils.recursively_symbolize_keys geojson_hash

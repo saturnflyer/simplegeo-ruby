@@ -54,7 +54,15 @@ module SimpleGeo
           endpoint_url "context/#{lat},#{lon}.json", '1.0'
         end
       end
-
+      
+      def context_by_table(lat, lon, table)
+        endpoint_url "context/#{lat},#{lon}.json?demographics.acs__table=#{table}", '1.0'
+      end
+      
+      def context_by_address_and_table(address, table)
+        endpoint_url "context/address.json?address=#{address}&demographics.acs__table=#{table}", '1.0'
+      end
+            
       def context_by_address(address, filter)
         if filter
           endpoint_url "context/address.json?address=#{address}&filter=#{filter}", '1.0'

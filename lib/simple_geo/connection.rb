@@ -32,7 +32,6 @@ module SimpleGeo
         if [:get, :delete].include?(method) && !data.nil?
           endpoint = endpoint + '?' + build_query(data)
         end
-
         if debug
           puts "request: #{method.to_s.upcase} #{endpoint}"
           puts "headers:"

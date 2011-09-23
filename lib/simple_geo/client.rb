@@ -102,9 +102,9 @@ module SimpleGeo
         elsif options[:lat] && options[:lon]
           endpoint = Endpoint.nearby_coordinates(layer,
             options.delete(:lat), options.delete(:lon))
-	  elsif options[:lat] && options[:lon] && options[:rad]
-	    endpoint = Endpoint.nearby_coordinates_rad(layer,
-	      options.delete(:lat), options.delete(:lon), options.delete(:rad))
+	    elsif options[:lat] && options[:lon] && options[:rad]
+	      endpoint = Endpoint.nearby_coordinates_rad(layer,
+	        options.delete(:lat), options.delete(:lon), options.delete(:rad))
         else
           raise SimpleGeoError, "Either geohash, lat/lon, or lat/lon/rad is required"
         end

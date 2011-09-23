@@ -527,7 +527,6 @@ describe "Client" do
     end
   end
 
-
   context "getting contains info for a set of coordinates" do
     before do
       stub_request :get,

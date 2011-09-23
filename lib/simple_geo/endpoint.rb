@@ -89,20 +89,38 @@ module SimpleGeo
         else
           params = []
           options.each do |k,v|
-            params << "#{k}=#{v}"
+            #allow for multiple category filtering
+            if k.eql?(:category)
+              v.split(",").each do |cat|
+                value = CGI.escape(cat.strip.to_s)
+                params << "#{k}=#{value}"
+              end
+            else
+              params << "#{k}=#{CGI.escape(v.to_s)}"
+            end
+
           end
           endpoint_url "places/#{lat},#{lon}.json?#{params.join("&")}", '1.0'
         end
       end
 
       def places_by_address(address, options)
+        address = CGI.escape(address.strip.to_s)
         if options.empty?
           endpoint_url "places/address.json?address=#{address}", '1.0'
         else
           params = []
           params << "address=#{address}"
           options.each do |k,v|
-            params << "#{k}=#{v}"
+            #allow for multiple category filtering
+            if k.eql?(:category)
+              v.split(",").each do |cat|
+                value = CGI.escape(cat.strip.to_s)
+                params << "#{k}=#{value}"
+              end
+            else
+              params << "#{k}=#{CGI.escape(v.to_s)}"
+            end
           end
           endpoint_url "places/address.json?#{params.join("&")}", '1.0'
         end
@@ -114,7 +132,15 @@ module SimpleGeo
         else
           params = []
           options.each do |k,v|
-            params << "#{k}=#{v}"
+            #allow for multiple category filtering
+            if k.eql?(:category)
+              v.split(",").each do |cat|
+                value = CGI.escape(cat.strip.to_s)
+                params << "#{k}=#{value}"
+              end
+            else
+              params << "#{k}=#{CGI.escape(v.to_s)}"
+            end
           end
           endpoint_url "places/#{ip}.json?#{params.join("&")}", '1.0'
         end

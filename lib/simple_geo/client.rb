@@ -95,7 +95,7 @@ module SimpleGeo
       end
 
       def get_nearby_records(layer, options)
-        radius = options[:rad].presence
+        radius = options[:rad]
         if options[:geohash]
           endpoint = Endpoint.nearby_geohash(layer, options.delete(:geohash))
         elsif options[:ip]

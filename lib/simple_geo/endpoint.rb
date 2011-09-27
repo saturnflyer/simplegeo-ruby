@@ -37,29 +37,20 @@ module SimpleGeo
 
       def nearby_coordinates(layer, lat, lon, radius=nil)
         path = "records/#{layer}/nearby/#{lat},#{lon}.json"
-        path = "#{path}?radius=#{radius}" if radius.present?
+        path = "#{path}?radius=#{radius}" if radius
         endpoint_url path, '0.1'
       end
 
-<<<<<<< HEAD
-      def nearby_coordinates_rad(layer, lat, lon, rad)
-        endpoint_url "records/#{layer}/nearby/#{lat},#{lon}.json?radius=#{rad}", '0.1'
-      end
-
-      def nearby_ip_address(layer, ip)
-        endpoint_url "records/#{layer}/nearby/#{ip}.json", '0.1'
-=======
       def nearby_ip_address(layer, ip, radius=nil)
         path = "records/#{layer}/nearby/#{ip}.json"
-        path = "#{path}?radius=#{radius}" if radius.present?
+        path = "#{path}?radius=#{radius}" if radius
         endpoint_url path, '0.1'
       end
 
       def nearby_address(layer, address, radius=nil)
         path = "records/#{layer}/nearby/address.json?address=#{address}"
-        path = "#{path}&radius=#{radius}" if radius.present?
+        path = "#{path}&radius=#{radius}" if radius
         endpoint_url path, '0.1'
->>>>>>> dwebster/master
       end
 
       def context(lat, lon, filter)
